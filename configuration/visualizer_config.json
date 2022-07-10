@@ -1,0 +1,104 @@
+{
+    "color_dictionary": {
+        "TCP Protocol Color": [
+            0.5490196078431373,
+            0.09803921568627451,
+            1.0
+        ],
+        "UDP Protocol Color": [
+            0.09803921568627451,
+            1.0,
+            0.3215686274509804
+        ],
+        "ICMP Protocol Color": [
+            0.2980392156862745,
+            0.7372549019607844,
+            1.0
+        ],
+        "OTHER Protocol Color": [
+            0.21176470588235294,
+            0.09803921568627451,
+            1.0
+        ],
+        "Data IN Color": [
+            0.2980392156862745,
+            1.0,
+            0.19607843137254902,
+            1.0
+        ],
+        "Data OUT Color": [
+            0.09803921568627451,
+            0.6588235294117647,
+            1.0,
+            1.0
+        ],
+        "Summary Data Color": [
+            1.0,
+            0.43529411764705883,
+            0.09803921568627451,
+            1.0
+        ]
+    },
+    "position_dictionary": {
+        "main_settings_icon_pos": [
+            140.0,
+            5.0
+        ],
+        "graph_icon_pos": [
+            20.0,
+            5.0
+        ],
+        "table_icon_pos": [
+            60.0,
+            5.0
+        ],
+        "malicious_icon_pos": [
+            100.0,
+            5.0
+        ],
+        "connection_label_pos": [
+            182,
+            12
+        ],
+        "settings_panel_pos": [
+            0.0,
+            100.0
+        ]
+    },
+    "auto_connect": false,
+    "last_connection": [
+        "localhost",
+        10000
+    ],
+    "connect_to": "localhost",
+    "local_port": 12550,
+    "remote_ip": [
+        "",
+        10000
+    ],
+    "stored_connections": {
+        "localhost": [
+            "LocalHost",
+            10000,
+            null
+        ]
+    },
+    "first_time_starting": true,
+    "my_computer": {
+        "graph_position": [
+            1406.0,
+            813.0
+        ],
+        "mercator_position": [
+            451.7471785066259,
+            1260.0183771132947
+        ],
+        "my_label": false
+    },
+    "country_labels": false,
+    "city_labels": false,
+    "ip_labels": false,
+    "new_packet_color_opacity": 10,
+    "inactive_ip_display_state": true,
+    "inactive_ip_display_time": 60
+}
