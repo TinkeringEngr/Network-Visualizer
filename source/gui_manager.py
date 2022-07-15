@@ -392,8 +392,11 @@ class GUI_Manager(ScreenManager):
         if self.server_socket is not None:
 
             self.request_sniffer_state()
-            self.set_sniffer_state()
-            self.settings_panel.initalize_interface_dropdown()
+
+            if self.sniffer_state is not None: 
+
+                self.set_sniffer_state()
+                self.settings_panel.initalize_interface_dropdown()
         
         
 
@@ -588,10 +591,15 @@ class GUI_Manager(ScreenManager):
         Request sniffer configuration variables 
         """
 
-        self.server_socket.send(b'state')
-        msg = self.server_socket.recv(flags=zmq.NOBLOCK)
+        try:
+            self.server_socket.send(b'state')
+            msg = self.server_socket.recv(flags=zmq.NOBLOCK)
 
-        self.sniffer_state = json.loads(msg)
+            self.sniffer_state = json.loads(msg)
+
+        except:
+            self.sniffer_state = None
+
 
 
 
