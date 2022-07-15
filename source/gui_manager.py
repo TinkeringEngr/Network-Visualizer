@@ -394,6 +394,7 @@ class GUI_Manager(ScreenManager):
             self.request_sniffer_state()
 
             if self.sniffer_state is not None: 
+                print("self.sniffer_state is not None", self.sniffer_state)
 
                 self.set_sniffer_state()
                 self.settings_panel.initalize_interface_dropdown()
@@ -596,9 +597,11 @@ class GUI_Manager(ScreenManager):
             msg = self.server_socket.recv(flags=zmq.NOBLOCK)
 
             self.sniffer_state = json.loads(msg)
+            print(self.sniffer_state, "working jsonloads sniffer state")
 
         except:
             self.sniffer_state = None
+            print("self.snifferstate set to none except in requuest sniffer state")
 
 
 
