@@ -296,7 +296,8 @@ class Sniffer(Process):
                     self.parse_packet(header, packet)
 
                 except Exception as e:
-                    print(e) #commonly trying to parse NoneType
+                    pass
+                    #print(e) #commonly trying to parse NoneType
 
 
                 current_timestamp = time.time()

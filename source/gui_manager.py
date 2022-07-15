@@ -589,7 +589,7 @@ class GUI_Manager(ScreenManager):
         """
 
         self.server_socket.send(b'state')
-        msg = self.server_socket.recv()
+        msg = self.server_socket.recv(flags=zmq.NOBLOCK)
 
         self.sniffer_state = json.loads(msg)
 
