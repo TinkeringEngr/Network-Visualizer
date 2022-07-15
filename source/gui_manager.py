@@ -994,9 +994,8 @@ class GUI_Manager(ScreenManager):
     
         for ip in self.sniffer_dictionary.keys():  # iterate over the json dictionary sent from network_sniffer.py
 
-            if (ip in self.ip_dictionary):  # IP, City and Country widgets exist. Just update IP data.
-                
-                #are these delta even used?
+            if ip in self.ip_dictionary:  # IP, City and Country widgets exist. Just update IP data.
+               
                 self.ip_dictionary[ip].data_in_delta += (self.sniffer_dictionary[ip]["data_in"] - self.ip_dictionary[ip].ip_data["data_in"])
                 self.ip_dictionary[ip].data_out_delta += (self.sniffer_dictionary[ip]["data_out"] - self.ip_dictionary[ip].ip_data["data_out"])
                 self.ip_dictionary[ip].ip_data = self.sniffer_dictionary[ip]
@@ -1016,7 +1015,6 @@ class GUI_Manager(ScreenManager):
 
                         self.inactive_cities[country].pop(city)
                         self.active_cities[country][city] = True
-
 
 
                     if ip in self.inactive_ips[country][city]:
@@ -1052,6 +1050,7 @@ class GUI_Manager(ScreenManager):
                     country_code = "Local"
 
                 else:
+
                     country = remove_inline_quotes(geoip_info["country_name"])
                     if country == None: country = 'Unresolved'
                     
@@ -1082,8 +1081,6 @@ class GUI_Manager(ScreenManager):
                                           )
 
                 
-       
-
                 # Check after IP_widget is created in order to have the ip_placeholder reference for whois lookup
                 if geoip_info == 'Local':
                     pass
@@ -1147,13 +1144,9 @@ class GUI_Manager(ScreenManager):
                     else:  # Case: Country widget exists, but no city widget exists. Build city widget
 
                         country_widget = self.country_dictionary[country][0]  # first item in array is country widget
-                        country_screen_x = (country_widget.screen_x)  # Get x screen position of Country Widget
-                        country_screen_y = (country_widget.screen_y)  # Get y screen position of Country Widget
-
-                        # convert to dictionary
+   
+         
                         city_widget = City_Widget(
-                                                    x_cord_country=country_screen_x,
-                                                    y_cord_country=country_screen_y,
                                                     gui_manager=self,
                                                     center_x=self.center_x,
                                                     center_y=self.center_y,
@@ -1174,9 +1167,6 @@ class GUI_Manager(ScreenManager):
 
                         self.active_cities[country][city] = True
 
-                        # try:
-                        #     self.active_ips[country][city][ip] = True
-                        # except:
                         self.active_ips[country].setdefault(city, {ip: True} )
 
                         self.inactive_ips[country][city] = {}
@@ -1197,18 +1187,13 @@ class GUI_Manager(ScreenManager):
 
                         self.city_total_count += 1  # After we update total_cities_label.text
 
-                        
-                        #self.active_ips[country].setdefault( city,  { ip: True }) 
-           
+  
 
                 else:  # Case: Country widget and City widget don't exist.  Build Country and City widget
 
                     # initalize position for country widget on screen for graph view
-                    country_screen_x = self.my_computer.icon_scatter_widget.pos[0]  + randrange(-100, 100) + cos(randrange(-100,100)) * randrange(-100, 100)
-                    country_screen_y = self.my_computer.icon_scatter_widget.pos[1]  + randrange(-100, 100) + sin(randrange(-100,100)) * randrange(-100, 100)
-
-                    #country_screen_x = self.window_x * random()
-                    #country_screen_y = self.window_y * random()
+                    country_screen_x = self.window_x * random()
+                    country_screen_y = self.window_y * random()
 
                     country_widget = Country_Widget(
                                                     screen_x=country_screen_x,
@@ -1266,8 +1251,6 @@ class GUI_Manager(ScreenManager):
                     self.active_ips.setdefault( country, {city : {ip : True} } )
                     self.inactive_ips.setdefault(country, { city : {} } )
 
-
-
                     if self.my_computer.show_city_widgets == True:
                         city_widget.show = True
 
@@ -1294,7 +1277,6 @@ class GUI_Manager(ScreenManager):
         self.set_summary_data()
 
         for ip in self.ip_data_streams.keys():
-
             self.ip_dictionary[ip].data_stream_text.text = self.ip_dictionary[ip].ip_data["stream_data"]
 
 
@@ -1480,30 +1462,20 @@ class GUI_Manager(ScreenManager):
         # Produce graph view
 
         if ( self.settings_panel.color_picker_popup_open == True ) and (self.settings_panel.color_picker_layout not in self.persistent_widget_container.children):
-            self.persistent_widget_container.add_widget(
-                self.settings_panel.color_picker_layout
-            )
+            self.persistent_widget_container.add_widget(self.settings_panel.color_picker_layout)
 
         if self.misc_update_dictionary["my_computer"]:
-            self.persistent_widget_container.add_widget(
-                self.misc_update_dictionary["my_computer"].menu_popup
-            )
+            self.persistent_widget_container.add_widget(self.misc_update_dictionary["my_computer"].menu_popup)
 
         for country in self.misc_update_dictionary["country"].keys():
-            self.persistent_widget_container.add_widget(
-                self.misc_update_dictionary["country"][country].menu_popup
-            )
+            self.persistent_widget_container.add_widget(self.misc_update_dictionary["country"][country].menu_popup)
 
         for city in self.misc_update_dictionary["city"].keys():
-            self.persistent_widget_container.add_widget(
-                self.misc_update_dictionary["city"][city].menu_popup
-            )
+            self.persistent_widget_container.add_widget(self.misc_update_dictionary["city"][city].menu_popup)
 
         for widget in self.graph_widgets:
-            
             self.graph_view.add_widget(widget)
  
-        
 
         self.transition.direction = "right"
         self.current = "graph"  # set screenmanager view
