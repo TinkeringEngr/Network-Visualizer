@@ -78,7 +78,7 @@ if __name__ == "__main__":  # start like this to prevent a bug with microsoft OS
                 if self.operating_system == "Darwin": #MacOS
 
                     self.darwin_network_visualizer_dir = os.path.expanduser('~/Library/Application Support/Network-Visualizer')
-                    print(self.darwin_network_visualizer_dir)
+                
 
                     if not os.path.exists(self.darwin_network_visualizer_dir):
 

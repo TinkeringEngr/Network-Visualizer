@@ -56,7 +56,10 @@ class Sniffer(Process):
 
         """Construct Network Sniffer"""
 
+        print("started sniffer constructor")
+
         super(Sniffer, self).__init__()
+
 
 
 
@@ -94,22 +97,23 @@ class Sniffer(Process):
 
         if self.config_variables_dict["default_interface"] == None:
 
-            try:
+            # try:
 
-                if self.operating_system == "Linux":
-                    default_interface = "eth0"
+            #     if self.operating_system == "Linux":
+            #         default_interface = "eth0"
 
-                elif self.operating_system == "Darwin":
-                    default_interface = "en0"
+            #     elif self.operating_system == "Darwin":
+            #         default_interface = "en0"
 
-                elif self.operating_system == "Windows":
+            #     elif self.operating_system == "Windows":
 
-                    raise Exception #Windows default interface is not unique
+            #         raise Exception #Windows default interface is not unique
 
-                self.pcapy_sniffer = open_live(default_interface, 65536, True, 100)
+            #     self.pcapy_sniffer = open_live(default_interface, 65536, True, 100)
             
-            except Exception as e:
+            # except Exception as e:
 
+            #     print("exception in setting up open_live interface -- setting everything to None")
                 self.active_sniffing = False
                 self.pcapy_sniffer = None
                 default_interface = None
