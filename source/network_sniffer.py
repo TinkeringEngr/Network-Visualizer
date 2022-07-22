@@ -16,6 +16,7 @@ from impacket.ImpactPacket import IP
 import ipaddress
 import json
 from multiprocessing import Process
+import multiexit
 import netifaces
 import os
 from pcapy import findalldevs, open_live, DLT_EN10MB, DLT_LINUX_SLL, findalldevs
@@ -61,6 +62,7 @@ class Sniffer(Process):
 
         super(Sniffer, self).__init__()
 
+        multiexit.register(self.terminate)
 
 
 
@@ -544,8 +546,9 @@ class Sniffer(Process):
                 self.sniffer_state["sniffing_interface"] = interface
                 self.config_variables_dict["default_interface"] = interface
 
-                with open( os.path.join(self.resource_path, "configuration/sniffer_config.json"), "w" ) as configuration_file:
-                    json.dump(self.config_variables_dict, configuration_file)
+                # BUG: need to store port otherwise creates a bug when re-reading null value
+                # with open( os.path.join(self.resource_path, "configuration/sniffer_config.json"), "w" ) as configuration_file:
+                #     json.dump(self.config_variables_dict, configuration_file)
 
         
         except Exception as e:

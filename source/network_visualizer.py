@@ -15,6 +15,10 @@ if __name__ == "__main__":  # start like this to prevent a bug with microsoft OS
     import multiprocessing
     multiprocessing.freeze_support()  # required by pyinstaller to be called ASAP
 
+    import multiexit
+
+    multiexit.install()
+
     from importlib import reload
     import os
     import platform 
