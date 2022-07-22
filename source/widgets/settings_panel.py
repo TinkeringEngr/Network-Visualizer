@@ -17,6 +17,7 @@ from multiprocessing import Array, Process
 from network_sniffer import Sniffer
 import os
 import pyperclip
+import pynng
 import shutil
 import sys
 import time
@@ -934,6 +935,8 @@ class Settings_Panel(AnchorLayout):
                         name="sniffer", target=Sniffer, kwargs=keywords
                     )
                     self.gui_manager.sniffer_process.start()
+
+                    #bug remove atexit and switch to multiexit 
                     atexit.register(self.gui_manager.sniffer_process.terminate)  # kill sniffer
 
                 except:
@@ -959,11 +962,13 @@ class Settings_Panel(AnchorLayout):
                 connect_string_sub = f"tcp://{ip}:{sub_port}"
 
                 context = zmq.Context()
-                self.gui_manager.server_socket = context.socket(zmq.REQ)  # client/server pattern for guaranteed messages
-                self.gui_manager.server_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])
-                self.gui_manager.server_socket.setsockopt(zmq.CURVE_SECRETKEY, keys[1])
-                self.gui_manager.server_socket.setsockopt(zmq.CURVE_SERVERKEY, server_key)
-                self.gui_manager.server_socket.connect(connect_string_req)
+                # self.gui_manager.server_socket = context.socket(zmq.REQ)  # client/server pattern for guaranteed messages
+                # self.gui_manager.server_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])
+                # self.gui_manager.server_socket.setsockopt(zmq.CURVE_SECRETKEY, keys[1])
+                # self.gui_manager.server_socket.setsockopt(zmq.CURVE_SERVERKEY, server_key)
+                # self.gui_manager.server_socket.connect(connect_string_req)
+                self.gui_manager.server_socket = pynng.Req0()
+                self.gui_manager.server_socket.dial(connect_string_req)
 
                 self.gui_manager.data_socket = context.socket(zmq.SUB)  # PUB/SUB pattern for sniffer data
                 self.gui_manager.data_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])

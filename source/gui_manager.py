@@ -21,6 +21,7 @@ import pygeoip
 import pyperclip
 from pyperclip import copy
 from pyproj import Proj
+import pynng
 import os
 from random import random, randint, randrange
 from skimage.color import rgb2lab, lab2rgb #TODO: implement this
@@ -486,6 +487,10 @@ class GUI_Manager(ScreenManager):
             except:
                 pass
 
+
+        self.server_socket = pynng.Req0()
+        self.server_socket.dial(connect_string_sniffer)
+
         try:
 
             context = zmq.Context()
@@ -499,11 +504,16 @@ class GUI_Manager(ScreenManager):
                 keys = zmq.auth.load_certificate( os.path.join(self.resource_path, "configuration/keys/client.key_secret") )
                 server_key, _ = zmq.auth.load_certificate( os.path.join(self.resource_path, "configuration/keys/server.key") )
 
-            self.server_socket = context.socket(zmq.REQ)  # client/server pattern for message passing
-            self.server_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])
-            self.server_socket.setsockopt(zmq.CURVE_SECRETKEY, keys[1])
-            self.server_socket.setsockopt(zmq.CURVE_SERVERKEY, server_key)
-            self.server_socket.connect(connect_string_sniffer)
+
+           
+
+            
+
+            # self.server_socket = context.socket(zmq.REQ)  # client/server pattern for message passing
+            # self.server_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])
+            # self.server_socket.setsockopt(zmq.CURVE_SECRETKEY, keys[1])
+            # self.server_socket.setsockopt(zmq.CURVE_SERVERKEY, server_key)
+            # self.server_socket.connect(connect_string_sniffer)
 
             self.data_socket = context.socket(zmq.SUB)  # PUB/SUB pattern for sniffer data
             self.data_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])
@@ -548,6 +558,10 @@ class GUI_Manager(ScreenManager):
             self.sniffer_process.start()
             atexit.register( self.sniffer_process.terminate )  # register sniffer cleanup function
 
+
+        self.server_socket = pynng.Req0()
+        self.server_socket.dial(connect_string_sniffer)
+
         try:
 
             context = zmq.Context()
@@ -562,11 +576,13 @@ class GUI_Manager(ScreenManager):
                 keys = zmq.auth.load_certificate( os.path.join(self.resource_path, "configuration/keys/client.key_secret"))
                 server_key, _ = zmq.auth.load_certificate( os.path.join(self.resource_path, "configuration/keys/server.key"))
 
-            self.server_socket = context.socket(zmq.REQ)  # client/server pattern for message passing
-            self.server_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])
-            self.server_socket.setsockopt(zmq.CURVE_SECRETKEY, keys[1])
-            self.server_socket.setsockopt(zmq.CURVE_SERVERKEY, server_key)
-            self.server_socket.connect(connect_string_sniffer)
+            # self.server_socket = context.socket(zmq.REQ)  # client/server pattern for message passing
+            # self.server_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])
+            # self.server_socket.setsockopt(zmq.CURVE_SECRETKEY, keys[1])
+            # self.server_socket.setsockopt(zmq.CURVE_SERVERKEY, server_key)
+            # self.server_socket.connect(connect_string_sniffer)
+            
+           
 
             self.data_socket = context.socket(zmq.SUB)  # PUB/SUB pattern for sniffer data
             self.data_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])

@@ -21,6 +21,7 @@ import os
 from pcapy import findalldevs, open_live, DLT_EN10MB, DLT_LINUX_SLL, findalldevs
 import platform
 import pygeoip
+import pynng
 from requests import get
 import sys
 import sys
@@ -230,11 +231,15 @@ class Sniffer(Process):
             self.publish_socket.setsockopt(zmq.CURVE_SERVER, True)
             self.publish_socket.bind(f"tcp://*:{self.subscribe_port}")
 
-            self.client_socket = context.socket(zmq.REP)
-            self.client_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])
-            self.client_socket.setsockopt(zmq.CURVE_SECRETKEY, keys[1])
-            self.client_socket.setsockopt(zmq.CURVE_SERVER, True)
-            self.client_socket.bind(f"tcp://*:{self.request_port}")
+
+            self.client_socket = pynng.Rep0()
+            self.client_socket.listen(f"tcp://*:{self.request_port}")
+
+            # self.client_socket = context.socket(zmq.REP)
+            # self.client_socket.setsockopt(zmq.CURVE_PUBLICKEY, keys[0])
+            # self.client_socket.setsockopt(zmq.CURVE_SECRETKEY, keys[1])
+            # self.client_socket.setsockopt(zmq.CURVE_SERVER, True)s
+            # self.client_socket.bind(f"tcp://*:{self.request_port}")
 
         except Exception as e:
 
@@ -477,7 +482,8 @@ class Sniffer(Process):
 
         try:
 
-            msg = self.client_socket.recv(flags=zmq.NOBLOCK)
+            msg = self.client_socket.recv(block=False)
+            print(msg)
 
             if msg == b"reset":
 
@@ -488,18 +494,18 @@ class Sniffer(Process):
 
                 self.active_sniffing = True
                 self.sniffer_state["active_sniffing"] = self.active_sniffing
-                self.client_socket.send_string(str(self.active_sniffing))
+                self.client_socket.send(str(self.active_sniffing).encode())
 
             elif msg == b"deactivate":
 
                 self.active_sniffing = False
                 self.sniffer_state["active_sniffing"] = self.active_sniffing
-                self.client_socket.send_string(str(self.active_sniffing))
+                self.client_socket.send(str(self.active_sniffing).encode())
 
             elif msg == b'state':
                 
                 sniffer_state = json.dumps(self.sniffer_state)
-                self.client_socket.send_string(sniffer_state)
+                self.client_socket.send(sniffer_state.encode())
 
             elif msg.startswith(b"collect "):
 
@@ -507,7 +513,7 @@ class Sniffer(Process):
                 target_ip = client_msg[1].decode('utf-8')
                 self.sniffer_dictionary[target_ip]["collect_data_flag"] = True
 
-                self.client_socket.send_string(f"Collecting on target {target_ip}")
+                self.client_socket.send(f"Collecting on target {target_ip}".encode())
 
             elif msg.startswith(b"interface "):
 
@@ -530,11 +536,11 @@ class Sniffer(Process):
 
                 except:
                         #TODO: client side error checking
-                        self.client_socket.send_string("unsupported")
+                        self.client_socket.send("unsupported".encode())
                         return 
                 
                 self.active_sniffing = True
-                self.client_socket.send_string(f"listening on {interface}")
+                self.client_socket.send(f"listening on {interface}".encode())
                 self.sniffer_state["sniffing_interface"] = interface
                 self.config_variables_dict["default_interface"] = interface
 
@@ -542,7 +548,7 @@ class Sniffer(Process):
                     json.dump(self.config_variables_dict, configuration_file)
 
         
-        except zmq.ZMQError as e:
+        except Exception as e:
             pass
 
 
