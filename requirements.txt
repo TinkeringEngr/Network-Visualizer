@@ -1,0 +1,14 @@
+requests
+kivy
+pyperclip
+ipwhois
+netifaces 
+pygeoip
+pyproj
+scikit-image
+pynng
+zmq
+impacket
+multiexit
+screeninfo
+pcapy-ng

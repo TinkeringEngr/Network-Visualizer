@@ -1,0 +1,36 @@
+# VS code
+.vscode/*
+
+# Python
+source/__pycache__
+source/widgets/__pycache__
+source/utilities/__pycache__
+
+# Packaging
+dist/
+build/
+source/dist/
+source/build/
+*.spec
+source/*.spec
+
+# Mac
+.DS_Store
+assets/.DS_Store
+assets/images/.DS_Store
+assets/images/country_icons/.DS_Store
+
+# Encryption keys
+configuration/keys/server.key_secret
+configuration/keys/server.key
+configuration/keys/client.key
+configuration/keys/client.key_secret
+
+
+
+# Application files 
+assets/database/whois.json
+configuration/visualizer_config.json
+configuration/sniffer_config.json
+assets/database/sessions.sqlite
+
