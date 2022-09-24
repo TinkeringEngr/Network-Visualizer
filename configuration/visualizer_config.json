@@ -1,0 +1,82 @@
+{
+    "color_dictionary": {
+        "TCP Protocol Color": [
+            0.5490196078431373,
+            0.09803921568627451,
+            1.0
+        ],
+        "UDP Protocol Color": [
+            0.09803921568627451,
+            1.0,
+            0.3215686274509804
+        ],
+        "ICMP Protocol Color": [
+            0.2980392156862745,
+            0.7372549019607844,
+            1.0
+        ],
+        "OTHER Protocol Color": [
+            0.21176470588235294,
+            0.09803921568627451,
+            1.0
+        ],
+        "Data IN Color": [
+            0.2980392156862745,
+            1.0,
+            0.19607843137254902,
+            1.0
+        ],
+        "Data OUT Color": [
+            0.09803921568627451,
+            0.6588235294117647,
+            1.0,
+            1.0
+        ],
+        "Summary Data Color": [
+            1.0,
+            0.43529411764705883,
+            0.09803921568627451,
+            1.0
+        ],
+        "Exempt Color": [
+            1.0,
+            0.43529411764705883,
+            0.09803921568627451,
+            1.0
+        ],
+        "Widget Halo Color": [
+            1,
+            1,
+            1,
+            0.2
+        ]
+    },
+    "position_dictionary": {
+                            "main_settings_icon_pos":[140.0, 5.0], "graph_icon_pos": [20.0, 5.0],
+                            "table_icon_pos":[60.0, 5.0], "malicious_icon_pos": [100.0, 5.0],
+                            "connection_label_pos":[182.0, 12.0], "settings_panel_pos": [15.0, 108.0]
+                            },
+
+    "stored_connections": {
+                            "Local Host": {
+                                "connection_info": [
+                                    "localhost",
+                                    13337
+                                ],
+                                "graph_position": null,
+                                "mercator_position": null
+                            }
+       
+    },
+    "last_connection": "Local Host",
+    "first_time_starting": true,
+    "auto_connect": true,
+    "computer_label": false,
+    "country_labels": false,
+    "city_labels": false,
+    "ip_labels": false,
+    "new_packet_color_opacity": 15,
+    "inactive_ip_display_state": true,
+    "inactive_ip_display_time": 30.0,
+    "play_audio_bool": true
+}
