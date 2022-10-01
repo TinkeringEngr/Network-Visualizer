@@ -38,15 +38,15 @@ Run with administrator privileges -- future changes will be forthcoming regardin
 
 ## Linux
 
-[Network-Visualizer-Linux.zip](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Linux.zip?ts=gAAAAABjLmlLIfIPNXxGNgQ1jQ1SWPJB4bjfyIXvqFXXrH7CBvp6No2yc38H1wNgqYn2RL-QlToP15fEPvlIj-GFo-XXAWBUKg%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Linux.zip%2Fdownload)
+[Network-Visualizer-Linux.zip](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Linux.zip?ts=gAAAAABjLmlLIfIPNXxGNgQ1jQ1SWPJB4bjfyIXvqFXXrH7CBvp6No2yc38H1wNgqYn2RL-QlToP15fEPvlIj-GFo-XXAWBUKg%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Linux.zip%2Fdownload){:target="_blank"}
 
 ## Windows
 
-[Network-Visualizer-Windows.zip](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Windows.zip?ts=gAAAAABjLnSsw9T2IhLWJBSkgb_2oRuw_n49g8SQgj-BPaq0-3MYdUKnmIXXnP_56pazmVNtvzzv_XeTzdMmHmDjgsCFBRv9ZQ%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Windows.zip%2Fdownload)
+[Network-Visualizer-Windows.zip](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Windows.zip?ts=gAAAAABjLnSsw9T2IhLWJBSkgb_2oRuw_n49g8SQgj-BPaq0-3MYdUKnmIXXnP_56pazmVNtvzzv_XeTzdMmHmDjgsCFBRv9ZQ%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Windows.zip%2Fdownload){:target="_blank"}
 
 ## MacOS
 
-[Network-Visualizer-Mac.dmg](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Mac.dmg?ts=gAAAAABjLl-NFofsI-_9d0wx6Xb2N-3-FxRAf3a9fBRJitxoa9lPPUt-aRws6INdRWuOpaawU2xaiQJU_Mp9fffrKJms5HF-nA%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Mac.dmg%2Fdownload)
+[Network-Visualizer-Mac.dmg](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Mac.dmg?ts=gAAAAABjLl-NFofsI-_9d0wx6Xb2N-3-FxRAf3a9fBRJitxoa9lPPUt-aRws6INdRWuOpaawU2xaiQJU_Mp9fffrKJms5HF-nA%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Mac.dmg%2Fdownload){:target="_blank"}
 
 <br><br>
 If there is a problem, search [github issues](https://github.com/TinkeringEngr/Network-Visualizer/issues) for the resolution and if not, please submit a github issue with as much detail as possible to replicate/diagnose the issue. 
