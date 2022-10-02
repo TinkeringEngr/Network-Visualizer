@@ -1531,14 +1531,16 @@ class Settings_Panel(AnchorLayout):
 
 
         if self.selected_protocol_button.text == "TCP Protocol":
-            self.gui_manager.config_variables_dict["color_dictionary"]["TCP Protocol Color"] = color_value
+            self.gui_manager.config_variables_dict["color_dictionary"]["TCP Protocol Color"] = color_value[0:3]
 
         elif self.selected_protocol_button.text == "UDP Protocol":
-            self.gui_manager.config_variables_dict["color_dictionary"]["UDP Protocol Color"] = color_value
+            self.gui_manager.config_variables_dict["color_dictionary"]["UDP Protocol Color"] = color_value[0:3]
 
+        elif self.selected_protocol_button.text == "ICMP Protocol":
+            self.gui_manager.config_variables_dict["color_dictionary"]["ICMP Protocol Color"] = color_value[0:3]
 
         elif self.selected_protocol_button.text == "Other Protocol":
-            self.gui_manager.config_variables_dict["color_dictionary"]["OTHER Protocol Color"] = color_value
+            self.gui_manager.config_variables_dict["color_dictionary"]["OTHER Protocol Color"] = color_value[0:3]
 
         elif self.selected_protocol_button.text == "Data IN":
             self.gui_manager.config_variables_dict["color_dictionary"]["Data IN Color"] = color_value

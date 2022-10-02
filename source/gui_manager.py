@@ -670,7 +670,7 @@ class GUI_Manager(ScreenManager):
     def mix_colors(self, protocols: dict) -> tuple[float, float, float, float]:
 
         """
-        Convience function to mix colors. Converts to LAB color space mixes them and converts back to RGB.
+        Converts to LAB color space, mixes colors then converts back to RGB.
         """
 
         channel_a = 0
