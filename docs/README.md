@@ -78,7 +78,7 @@ Be sure Microsoft Visual C++ 14.0 or higher is installed and Python is linked to
 2.  `git clone https://github.com/TinkeringEngr/Network-Visualizer.git` <br>
 3.   Delete pcapy-ng from the requirements.txt file <br>
 4.  `pip install -r requirements.txt` <br>
-5.  Download [Npcap SDK 1.12](https://npcap.com/dist/npcap-sdk-1.12.zip)
+5.  Install [Npcap](https://npcap.com/dist/) and download the SDK files [Npcap SDK 1.12](https://npcap.com/dist/npcap-sdk-1.12.zip)
 6.  Install pcapy-ng with the Npcap SDK files linked explicitly.  Like the following example:<br><br> `pip install pcapy-ng --global-option=build_ext --global-option="-LC:\PATH\TO\npcap-sdk-1.12\Lib\x64" --global-option="-IC:\PATH\TO\npcap-sdk-1.12\Include\pcap"` <br><br>
 
 If the computer gods have smiled upon you, run the program with administrator privileges<br> `python network_visualizer.py` <br><br>
