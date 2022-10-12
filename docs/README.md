@@ -8,7 +8,11 @@ Network Visualizer is a open-source tool that allows everyone - not just securit
 <br>
 
 <p align="center">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jpIFm8byyqY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Promotional Video: https://youtu.be/jpIFm8byyqY
+</p>
+
+<p align="center">
+Walkthrough Video: https://youtu.be/suKNbLfNQZU
 </p>
 
 <br>
