@@ -13,10 +13,9 @@ import atexit
 import datetime
 import gc
 from importlib import reload 
-from ipwhois import IPWhois  # IP description and abuse emails
 import json
 from math import floor, sin, cos
-from multiprocessing import Process
+from multiprocessing import Process, Pipe
 import pygeoip
 import pyperclip
 #from pyperclip import copy
@@ -28,6 +27,8 @@ from skimage.color import rgb2lab, lab2rgb #TODO: implement this
 import sys
 import time
 import threading
+
+
 from typing import Callable
 import zmq 
 import zmq.auth #TODO: authorize connections
@@ -195,6 +196,7 @@ from widgets.city_widget import City_Widget
 from utilities.utils import *
 from utilities.iconfonts import *
 from utilities.database_config import *
+from utilities.whois_lookup_process import ip_whois_lookup_process
 
 
 
@@ -448,7 +450,12 @@ class GUI_Manager(ScreenManager):
 
         Clock.schedule_interval(self.update_gui, 1 / 60)  # Main program loop to update GUI widget
         Clock.schedule_interval(self.update_from_sniffer, 1)  # Update data from sniffer --> self.sniffer_dictionary
-        Clock.schedule_interval(self.ip_whois_lookup, 10)  # Batch lookup of IP whois
+
+
+        self.start_ip_whois_lookup_process()
+        Clock.schedule_interval(self.check_ip_whois_lookup, 10)  # Batch lookup of IP whois
+
+
         Clock.schedule_interval(self.db_insert_ip_whois_info, 10)
 
     # End of GUI_Manager constructor
@@ -1117,7 +1124,8 @@ class GUI_Manager(ScreenManager):
                     db.commit()
 
                 else:
-                    self.todo_ip_whois_array.append( (ip, ip_placeholder) )
+                    #self.todo_ip_whois_array.append( (ip, ip_placeholder) )
+                    self.todo_ip_whois_array.append(ip)
                 
 
                 
@@ -1356,41 +1364,66 @@ class GUI_Manager(ScreenManager):
             pass
 
 
-
-    def ip_whois_lookup(self, time_delta: float):
+    def start_ip_whois_lookup_process(self):
 
         """
-        Scheduled function to periodically start a new thread for IP whois lookup.
+        Start a IP whois lookup process.
         """
 
-        # Checks conditions when the ip_whois_thread is not running.
+        self.parent_conn, child_conn = Pipe()
+        
+        p = Process(target=ip_whois_lookup_process, args=(child_conn,))
+        p.start()
 
-        if self.ip_whois_thread == None:
 
-            todo_ip_whois_array_copy = self.todo_ip_whois_array.copy() # copy IP's that need lookup
-            self.todo_ip_whois_array = []  # reset the datastructure
 
-            # start the thread with a batch of IP's
-            self.ip_whois_thread = threading.Thread( target=self.ip_whois_lookup_thread, kwargs={"todo_ip_whois_array": todo_ip_whois_array_copy},).start()
+    def check_ip_whois_lookup(self, time_delta: float):
 
-        elif self.ip_whois_thread.is_alive() == False:
+        """
+        Communicate with ip_whois_lookup_process and update associated GUI information. 
+        """
 
-            todo_ip_whois_array_copy = self.todo_ip_whois_array.copy() # copy IP's that need lookup
-            self.todo_ip_whois_array = []  # reset the datastructure
+        todo_ip_whois_array_copy = self.todo_ip_whois_array.copy()
+        
+        self.parent_conn.send(todo_ip_whois_array_copy)
+        self.todo_ip_whois_array = []
+        
 
-            # start the thread with a batch of IP's
-            self.ip_whois_thread = threading.Thread( target=self.ip_whois_lookup_thread, kwargs={"todo_ip_whois_array": todo_ip_whois_array_copy},).start()
+        if self.parent_conn.poll():
 
-        elif self.ip_whois_thread.is_alive() == True:
-            # thread is still running so wait for it to finish before starting again  
+            finished_ip_whois_lookup_from_child = self.parent_conn.recv()
+
+            for ip_key in finished_ip_whois_lookup_from_child.keys():
+
+                try:
+                    ip_whois_info = finished_ip_whois_lookup_from_child[ip_key]
+                    ip_whois_description = ip_whois_info["nets"][0]["description"] 
+                    self.ip_dictionary[ip_key].whois_description.text = ip_whois_description
+                    self.ip_whois_info_dict[ip_key] = ip_whois_info
+                    self.resolved_whois_data[ip_key] = ip_whois_description
+
+
+                    #this will break if the number of columns will change. 
+                    self.live_table_dictionary[ip_key].children[6].text = ip_whois_description # TODO: use isInstance() or id to search children instead of hard coded description at children[5]
+
+                    if self.malicious_table_dictionary[ip_key]:
+                        self.malicious_table_dictionary[ip_key].children[6].text = ip_whois_description # TODO: use isInstance() or id property to search children instead of hard coded description at children[6]
+                except:
+
+                    #TODO: Error handling
+                    pass
+            
+
+        else: 
             pass
+
 
 
 
     def db_insert_ip_whois_info(self, time_delta: float) -> None:
 
         """
-        Insert whois information into sqlite3 database. Done this way to prevent issue with opening db.cursor in seperate thread.
+        Insert whois information into sqlite3 database. Done this way to prevent issue with opening db.cursor in seperate thread. <--- maybe not releveant anymore since architecture was switched to multiprocess instead of multithread. 
         """
 
 
@@ -1413,54 +1446,6 @@ class GUI_Manager(ScreenManager):
 
                 del self.resolved_whois_data[ip]
 
-
-
-    def ip_whois_lookup_thread(self, **kwargs) -> None:
-
-        """
-        Function for whois lookup on a batch of IP's (kwargs["todo_ip_whois_array"]).
-        Called in a seperate thread due to ~1 second network connection delay per IP.
-        Creates a noticable delay in the visualizer. May want to use an alternative pattern like python async if it can prevent this -- a preliminary attempt proved otherwise.
-        """
-
-        for ip_tuple in kwargs["todo_ip_whois_array"]:
-            ip, ip_object = ip_tuple
-
-            try:
-                ip_whois = IPWhois(ip)
-                ip_whois_info = ip_whois.lookup_whois()
-                ip_whois_description = ip_whois_info["nets"][0]["description"]
-
-                if ip_whois_description == None:
-                    ip_whois_description = "No Description Available"
-
-                while ip_whois_description.find("'") >= 0:
-                    ip_whois_description = ip_whois_description.replace("'", "")
-
-                while ip_whois_description.find('"') >= 0:
-                    ip_whois_description = ip_whois_description.replace('"', "")
-
-                ip_whois_info["nets"][0]["description"] = ip_whois_description
-            
-            except Exception as e:
-                print(e)
-
-
-            try:
-                ip_object.whois_description.text = ip_whois_description
-                self.ip_whois_info_dict[ip] = ip_whois_info
-                self.resolved_whois_data[ip] = ip_whois_description
-
-
-                #this will break if the number of columns will change. 
-                self.live_table_dictionary[ip].children[6].text = ip_whois_description # TODO: use isInstance() or id to search children instead of hard coded description at children[5]
-
-                if self.malicious_table_dictionary[ip]:
-                    self.malicious_table_dictionary[ip].children[6].text = ip_whois_description # TODO: use isInstance() or id property to search children instead of hard coded description at children[6]
-
-                
-            except:
-                pass
 
 
 
