@@ -453,10 +453,10 @@ class GUI_Manager(ScreenManager):
 
 
         self.start_ip_whois_lookup_process()
-        Clock.schedule_interval(self.check_ip_whois_lookup, 10)  # Batch lookup of IP whois
+        Clock.schedule_interval(self.check_ip_whois_lookup, 3)  # Batch lookup of IP whois
 
 
-        Clock.schedule_interval(self.db_insert_ip_whois_info, 10)
+        Clock.schedule_interval(self.db_insert_ip_whois_info, 3)
 
     # End of GUI_Manager constructor
 
