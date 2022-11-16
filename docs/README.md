@@ -7,6 +7,14 @@ Network Visualizer is a open-source tool that allows everyone - not just securit
 </p>
 <br>
 
+<p align="center">
+Promotional Video: https://www.youtube.com/watch?v=jpIFm8byyqY
+</p>
+
+<p align="center">
+Walkthrough Video: https://www.youtube.com/watch?v=suKNbLfNQZU
+</p>
+
 <br>
 
 # Donate
@@ -38,15 +46,15 @@ Run with administrator privileges -- future changes will be forthcoming regardin
 
 ## Linux
 
-[Network-Visualizer-Linux.zip](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Linux.zip?ts=gAAAAABjLmlLIfIPNXxGNgQ1jQ1SWPJB4bjfyIXvqFXXrH7CBvp6No2yc38H1wNgqYn2RL-QlToP15fEPvlIj-GFo-XXAWBUKg%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Linux.zip%2Fdownload)
+[Network-Visualizer-Linux.zip](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Linux.zip?ts=gAAAAABjQMvTemYIWhxVXFcMzt2vD4S76_1Kst7IQKiYg2cIk8rxF6nIeWDO6KK1ulcNaAbSyWZsvVI8uNSEl1eMbXELOHZ_jg%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Linux.zip%2Fdownload)
 
 ## Windows
 
-[Network-Visualizer-Windows.zip](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Windows.zip?ts=gAAAAABjLnSsw9T2IhLWJBSkgb_2oRuw_n49g8SQgj-BPaq0-3MYdUKnmIXXnP_56pazmVNtvzzv_XeTzdMmHmDjgsCFBRv9ZQ%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Windows.zip%2Fdownload)
+[Network-Visualizer-Windows.zip](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Windows.zip?ts=gAAAAABjQMu-Gf7sGTDS-JzX4DPCZ9wfwmbkszcTBtpRwNORVfhGxlG9m5zM3ssQQeHAEeUfuBnUcOAa2QozZFLjJorQHtDOaA%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Windows.zip%2Fdownload)
 
 ## MacOS
 
-[Network-Visualizer-Mac.dmg](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Mac.dmg?ts=gAAAAABjLl-NFofsI-_9d0wx6Xb2N-3-FxRAf3a9fBRJitxoa9lPPUt-aRws6INdRWuOpaawU2xaiQJU_Mp9fffrKJms5HF-nA%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Mac.dmg%2Fdownload)
+[Network-Visualizer-Mac.dmg](https://downloads.sourceforge.net/project/network-visualizer/Network-Visualizer-Mac.dmg?ts=gAAAAABjQMtx-OLYP--cfon2efFTRldBq_2p47jLnnp8c1I5YzpipUS3WKec3HmPYyIbIja6eOdjCDjgmxRqXs3vdDVOxLQgzQ%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fnetwork-visualizer%2Ffiles%2FNetwork-Visualizer-Mac.dmg%2Fdownload)
 
 <br><br>
 If there is a problem, search [github issues](https://github.com/TinkeringEngr/Network-Visualizer/issues) for the resolution and if not, please submit a github issue with as much detail as possible to replicate/diagnose the issue. 
@@ -78,7 +86,7 @@ Be sure Microsoft Visual C++ 14.0 or higher is installed and Python is linked to
 2.  `git clone https://github.com/TinkeringEngr/Network-Visualizer.git` <br>
 3.   Delete pcapy-ng from the requirements.txt file <br>
 4.  `pip install -r requirements.txt` <br>
-5.  Download [Npcap SDK 1.12](https://npcap.com/dist/npcap-sdk-1.12.zip)
+5.  Install [Npcap](https://npcap.com/dist/) and download the SDK files [Npcap SDK 1.12](https://npcap.com/dist/npcap-sdk-1.12.zip)
 6.  Install pcapy-ng with the Npcap SDK files linked explicitly.  Like the following example:<br><br> `pip install pcapy-ng --global-option=build_ext --global-option="-LC:\PATH\TO\npcap-sdk-1.12\Lib\x64" --global-option="-IC:\PATH\TO\npcap-sdk-1.12\Include\pcap"` <br><br>
 
 If the computer gods have smiled upon you, run the program with administrator privileges<br> `python network_visualizer.py` <br><br>
