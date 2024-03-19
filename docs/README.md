@@ -21,7 +21,7 @@ Walkthrough Video: https://www.youtube.com/watch?v=suKNbLfNQZU
 
 Network Visualizer is 100% funded through donations — which is none so far at the time of this writing. 🙃 <br> 
 
-Your donation would facilitate the development of open source tools to serve you. Send me an email (TinkeringEngr at protonmail.com) with a screenshot of your donation; I would like to attribute those who are supporting the work. Thank you!
+Your donation would facilitate the development of open source tools to serve you. Thank you!
 <br>
 
 Venmo<br>
